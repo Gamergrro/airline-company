@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airline Management System</title>
+    <link rel="stylesheet" href="staff_module.css">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<div class="navbar">
+    <a href="../passenger/passenger_module.html" class="active" data-target="passenger">Passenger Management</a>
+    <a href="../flight/Flight_Module.html" data-target="flight">Flight Management</a>
+    <a href="staff/staff_module.html" data-target="staff">Staff Management</a>
+    <a href="../airplane management/airplane_module.html" data-target="airplane">Airplane Management</a>
+    <a href="../city_module/city.html" data-target="city">City Management</a>
+</div>
+
+<!-- Staff Module -->
+<div class="module" id="staff" style="display: block;">
+    <h2>Staff Module</h2>
+    <form id="staff-form">
+        <label for="empnum">Employee Number:</label>
+        <input type="text" id="empnum" name="empnum" required>
+
+        <label for="surname">Surname:</label>
+        <input type="text" id="surname" name="surname" required>
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required>
+
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" required>
+
+        <label for="salary">Salary:</label>
+        <input type="number" id="salary" name="salary" required>
+
+        <label for="flights">Assign to Flights:</label>
+        <select id="flights" name="flights" multiple>
+            <option value="ABC123">ABC123 - New York to London</option>
+            <option value="XYZ456">XYZ456 - London to Tokyo</option>
+            <!-- More flight options can be added here -->
+        </select>
+
+        <button type="submit">Add Staff</button>
+    </form>
+    <div class="staff-details">
+        <h3>Staff Details</h3>
+        <p id="display-empnum"><strong>Employee Number:</strong> </p>
+        <p id="display-surname"><strong>Surname:</strong> </p>
+        <p id="display-name"><strong>Name:</strong> </p>
+        <p id="display-address"><strong>Address:</strong> </p>
+        <p id="display-phone"><strong>Phone:</strong> </p>
+        <p id="display-salary"><strong>Salary:</strong> </p>
+        <p id="display-flights"><strong>Assigned Flights:</strong> </p>
+        <!-- Display area for staff details -->
+    </div>
+</div>
+
+
+<script>
+    document.getElementById('staff-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        document.getElementById('display-empnum').innerText = 'Employee Number: ' + document.getElementById('empnum').value;
+        document.getElementById('display-surname').innerText = 'Surname: ' + document.getElementById('surname').value;
+        document.getElementById('display-name').innerText = 'Name: ' + document.getElementById('name').value;
+        document.getElementById('display-address').innerText = 'Address: ' + document.getElementById('address').value;
+        document.getElementById('display-phone').innerText = 'Phone: ' + document.getElementById('phone').value;
+        document.getElementById('display-salary').innerText = 'Salary: $' + document.getElementById('salary').value;
+        
+        const selectedFlights = Array.from(document.getElementById('flights').selectedOptions).map(option => option.text).join(', ');
+        document.getElementById('display-flights').innerText = 'Assigned Flights: ' + selectedFlights;
+    });
+</script>
+
+</body>
+</html>

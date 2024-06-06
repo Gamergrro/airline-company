@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Management</title>
+    <link rel="stylesheet" href="city.css">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<div class="navbar">
+    <a href="../passenger/passenger_module.html">Passenger Management</a>
+    <a href="../flight/Flight_Module.html">Flight Management</a>
+    <a href="../staff/staff_module.html">Staff Management</a>
+    <a href="../airplane_management/airplane_module.html">Airplane Management</a>
+    <a href="city.html" class="active">City Management</a>
+</div>
+
+<!-- City Module -->
+<div class="module" id="city" style="display: block;">
+    <h2>City Module</h2>
+    <form id="city-form">
+        <label for="cityname">City Name:</label>
+        <input type="text" id="cityname" name="cityname" required>
+
+        <label for="flights">Associate with Flights:</label>
+        <select id="flights" name="flights[]" multiple>
+            <option value="ABC123">ABC123 - New York to London</option>
+            <option value="XYZ456">XYZ456 - London to Tokyo</option>
+            <!-- More flight options can be added here -->
+        </select>
+
+        <button type="submit">Add City</button>
+    </form>
+    <div class="city-details">
+        <h3>City Details</h3>
+        <p id="display-cityname"><strong>City Name:</strong> </p>
+        <p id="display-flights"><strong>Associated Flights:</strong> </p>
+        <!-- Display area for city details -->
+    </div>
+</div>
+
+<script>
+    document.getElementById('city-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const formData = new FormData(document.getElementById('city-form'));
+
+        fetch('insert_city.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            // Update the displayed information
+            document.getElementById('display-cityname').innerText = 'City Name: ' + document.getElementById('cityname').value;
+            const selectedFlights = Array.from(document.getElementById('flights').selectedOptions).map(option => option.text).join(', ');
+            document.getElementById('display-flights').innerText = 'Associated Flights: ' + selectedFlights;
+            alert(data);  // This can be enhanced to show a nicer message
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airplane Management</title>
+    <link rel="stylesheet" href="airplane.css">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<div class="navbar">
+    <a href="../passenger/passenger_module.html">Passenger Management</a>
+    <a href="../flight/Flight_Module.html">Flight Management</a>
+    <a href="../staff/staff_module.html">Staff Management</a>
+    <a href="airplane_module.html" class="active">Airplane Management</a>
+    <a href="../city_module/city.html">City Management</a>
+</div>
+
+<!-- Airplane Module -->
+<div class="module" id="airplane" style="display: block;">
+    <h2>Airplane Module</h2>
+    <form id="airplane-form">
+        <label for="sernum">Serial Number:</label>
+        <input type="text" id="sernum" name="sernum" required>
+
+        <label for="manufacturer">Manufacturer:</label>
+        <input type="text" id="manufacturer" name="manufacturer" required>
+
+        <label for="model">Model:</label>
+        <input type="text" id="model" name="model" required>
+
+        <label for="flights">Assign to Flights:</label>
+        <select id="flights" name="flights[]" multiple>
+            <option value="ABC123">ABC123 - New York to London</option>
+            <option value="XYZ456">XYZ456 - London to Tokyo</option>
+            <!-- More flight options can be added here -->
+        </select>
+
+        <button type="submit">Add Airplane</button>
+    </form>
+    <div class="airplane-details">
+        <h3>Airplane Details</h3>
+        <div id="airplane-list">
+            <?php include 'display_airplanes.php'; ?>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('airplane-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const formData = new FormData(document.getElementById('airplane-form'));
+
+        fetch('insert_airplane.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log(data); // Debug: log the response
+            alert(data);  // Show alert with the response from server
+
+            // Reload the list of airplanes
+            fetch('display_airplanes.php')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('airplane-list').innerHTML = html;
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+</script>
+
+</body>
+</html>

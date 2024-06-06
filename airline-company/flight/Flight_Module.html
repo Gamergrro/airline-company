@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airline Management System</title>
+    <link rel="stylesheet" href="Flight_Module.css">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<div class="navbar">
+    <a href="../passenger/passenger_module.html" class="active" data-target="passenger">Passenger Management</a>
+    <a href="flight/Flight_Module.html" data-target="flight">Flight Management</a>
+    <a href="../staff/staff_module.html" data-target="staff">Staff Management</a>
+    <a href="../airplane management/airplane_module.html" data-target="airplane">Airplane Management</a>
+    <a href="../city_module/city.html" data-target="city">City Management</a>
+</div>
+
+
+<!-- Flight Module -->
+<div class="module" id="flight" style="display: block;">
+    <h2>Flight Module</h2>
+    <form id="flight-form">
+        <label for="flightnum">Flight Number:</label>
+        <input type="text" id="flightnum" name="flightnum" required>
+
+        <label for="origin">Origin:</label>
+        <input type="text" id="origin" name="origin" required>
+
+        <label for="dest">Destination:</label>
+        <input type="text" id="dest" name="dest" required>
+
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required>
+
+        <label for="arr-time">Arrival Time:</label>
+        <input type="time" id="arr-time" name="arr-time" required>
+
+        <label for="dep-time">Departure Time:</label>
+        <input type="time" id="dep-time" name="dep-time" required>
+
+        <label for="airplane">Assign Airplane:</label>
+        <select id="airplane" name="airplane">
+            <option value="12345">Boeing 737</option>
+            <option value="67890">Airbus A320</option>
+            <!-- More airplane options can be added here -->
+        </select>
+
+        <label for="passengers">Associate Passengers:</label>
+        <select id="passengers" name="passengers" multiple>
+            <option value="John Doe">John Doe</option>
+            <option value="Jane Smith">Jane Smith</option>
+            <!-- More passenger options can be added here -->
+        </select>
+
+        <button type="submit">Add Flight</button>
+    </form>
+    <div class="flight-details">
+        <h3>Flight Details</h3>
+        <p id="display-flightnum"><strong>Flight Number:</strong> </p>
+        <p id="display-origin"><strong>Origin:</strong> </p>
+        <p id="display-dest"><strong>Destination:</strong> </p>
+        <p id="display-date"><strong>Date:</strong> </p>
+        <p id="display-arr-time"><strong>Arrival Time:</strong> </p>
+        <p id="display-dep-time"><strong>Departure Time:</strong> </p>
+        <p id="display-airplane"><strong>Airplane:</strong> </p>
+        <p id="display-passengers"><strong>Passengers:</strong> </p>
+        <!-- Display area for flight details -->
+    </div>
+</div>
+
+
+
+<script>
+    document.getElementById('flight-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        document.getElementById('display-flightnum').innerText = 'Flight Number: ' + document.getElementById('flightnum').value;
+        document.getElementById('display-origin').innerText = 'Origin: ' + document.getElementById('origin').value;
+        document.getElementById('display-dest').innerText = 'Destination: ' + document.getElementById('dest').value;
+        document.getElementById('display-date').innerText = 'Date: ' + document.getElementById('date').value;
+        document.getElementById('display-arr-time').innerText = 'Arrival Time: ' + document.getElementById('arr-time').value;
+        document.getElementById('display-dep-time').innerText = 'Departure Time: ' + document.getElementById('dep-time').value;
+        document.getElementById('display-airplane').innerText = 'Airplane: ' + document.getElementById('airplane').selectedOptions[0].text;
+        
+        const selectedPassengers = Array.from(document.getElementById('passengers').selectedOptions).map(option => option.text).join(', ');
+        document.getElementById('display-passengers').innerText = 'Passengers: ' + selectedPassengers;
+    });
+</script>
+</body>
+</html>
